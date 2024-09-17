@@ -10,7 +10,7 @@ class Node:
 class Solution:
     def flatten(self, head: 'Optional[Node]') -> 'Optional[Node]':
         if not head:
-            return head 
+            return 
         temp = []         
         curr = head 
         while curr:
