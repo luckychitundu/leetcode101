@@ -5,14 +5,17 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def preorder(self, root, res):
-        if not root:
-            return 
-        res.append(root.val) 
-        self.preorder(root.left, res) 
-        self.preorder(root.right, res)   
-
     def countNodes(self, root: Optional[TreeNode]) -> int:
-        res = []
-        self.preorder(root, res)
-        return len(res)    
+        if not root:
+            return 0 
+        stack = [root] 
+        count = 0 
+        while stack:
+            node = stack.pop() 
+            count += 1 
+            if node.right:
+                stack.append(node.right) 
+            if node.left:
+                stack.append(node.left) 
+        return count              
+
