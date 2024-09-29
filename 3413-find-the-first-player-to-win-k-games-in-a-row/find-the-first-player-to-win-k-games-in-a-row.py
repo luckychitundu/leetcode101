@@ -1,23 +1,27 @@
-from typing import List
-from collections import deque
-
+from collections import deque 
 class Solution:
     def findWinningPlayer(self, skills: List[int], k: int) -> int:
-        n = len(skills)
-        queue = deque(range(1, n))  # Initialize the queue with players 1 to n-1
-        ele = 0
-        w = 0  # ele is the current winner, w is the win count
-        
-        while True:
-            num = queue.popleft()
-            if skills[num] < skills[ele]:
-                w += 1  # Current winner wins again
-                queue.append(num)  # Loser goes to end of queue
+        queue = deque([i for i in range(1, len(skills))])
+        current_winner = 0
+        streak = 0 
+        while streak < k:
+            next_player = queue.popleft() 
+            if skills[current_winner] > skills[next_player]:
+                streak += 1 
+                queue.append(next_player) 
             else:
-                w = 1  # New winner found
-                queue.append(ele)  # Previous winner goes to end of queue
-                ele = num  # Update current winner
-                
-            if w == k or w >= n - 1:
-                return ele  # Check for win condition
-        return 1
+                streak = 1 
+                queue.append(current_winner)
+                current_winner = next_player 
+            if streak >= len(skills) - 1:
+                return current_winner     
+        return current_winner         
+
+
+
+
+
+
+
+
+        
